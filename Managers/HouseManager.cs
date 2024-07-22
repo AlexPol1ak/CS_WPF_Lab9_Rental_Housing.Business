@@ -16,9 +16,15 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         }
 
         #region basic CRUD operations
-        public bool DeleteHouse()
+
+        public void AddHouse (House house)
         {
-            return true;
+            housesRepository.Create(house);
+        }
+
+        public bool DeleteHouse( int id)
+        {
+            return housesRepository.Delete(id);
         }
 
         public IEnumerable<House> FindHouse(Expression<Func<House, bool>> predicate)=>
@@ -33,6 +39,12 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             housesRepository.Update(house);
             unitOfWork.SaveChanges();
         }
+
+        public bool ContainsHouse(House house)
+        {
+            return housesRepository.Contains(house);
+        }
+        
 
         #endregion
     }
