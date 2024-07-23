@@ -10,7 +10,9 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
 {
     public class BaseManager
     {
+        
         protected readonly IUnitOfWork unitOfWork;
+        //Table сontrol Repositories.
         protected readonly IRepository<House> housesRepository;
         protected readonly IRepository<Apartment> apartmentRepository;
         protected readonly IRepository<Photo> photoRepository;

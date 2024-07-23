@@ -13,29 +13,46 @@ using System.Windows;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
 {
+    /// <summary>
+    /// Filling the database with the initial data.
+    /// </summary>
     public static  class DbInitData
     {
+        /// <summary>
+        /// Fills the database with fake initial data.
+        /// </summary>
+        /// <param name="factory">Managers factory</param>
+        /// <param name="onlyEmpty">
+        /// If true - the database will be filled only if it 
+        /// does not contain houses and apartments.
+        /// If fasle - the database will be filled in any case.
+        /// </param>
         public static void SetupData(ManagersFactory factory, bool onlyEmpty = true)
         {
             
             var housesManager = factory.GetHouseManager();
             var apartmentManager = factory.GetApartmentManager();
 
+            // Check to see if there are records in the database.
             if (onlyEmpty is true)
             {
                 if (housesManager.CountHouses() != 0 & apartmentManager.CountApartments() != 0)
                     return;
             }
 
+            // Creates a list of houses with apartments, photos and stores in a database.
             List<House> houses = CreateHouses();      
             foreach (House house in houses)
             {
                 housesManager.AddHouse(house);
             }
             housesManager.SaveChanges();
-            MessageBox.Show("Create");
         }
         #region Create House
+        /// <summary>
+        /// Creates a list of houses with apartments and photos.
+        /// </summary>
+        /// <returns></returns>
         private static List<House> CreateHouses()
         {
             House h1 = new House()
@@ -60,18 +77,21 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             };
 
             List<House> houses = new List<House>() { h1, h2 };
+            // Get a collection of apartments with photos
             List<Apartment> apartments = CreateApartments();
 
-            int countApart = apartments.Count / houses.Count;
-            int numberApart = 0;
-            int houseInd = 0;
+            // Link the houses to the apartments received.
+            // Each house has an equal number of apartments.
+            int countApart = apartments.Count / houses.Count; // The number of apartments in each building.
+            int numberApart = 0; // Number of apartments added to the house
+            int houseInd = 0; // House index
 
             List<Apartment> temAddpApart = new List<Apartment>();
             for(int i = 0; i < apartments.Count; i++)
             {              
                 temAddpApart.Add(apartments[i]);
                 numberApart++;
-
+                
                 if(numberApart >= countApart)
                 {
                     houses[houseInd].Apartments = temAddpApart;
@@ -195,7 +215,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             int index = 0;
             while (count < limitPhoto)
             {
-                // Получаем текущий файл по индексу
+                // Get the current file by index
                 string photoPath = allFiles[index];
                 string photoName = Path.GetFileName(photoPath);
                 Photo ph = new Photo() { PhotoName = photoName };
@@ -204,7 +224,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
 
                 count++;
                 index++;
-                // При достижения конца списка фото- начать завново.
+                // When you reach the end of the photo list, start over.
                 if (index >= allFiles.Count)
                 {
                     index = 0;

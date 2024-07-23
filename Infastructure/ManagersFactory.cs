@@ -12,7 +12,10 @@ using System.Threading.Tasks;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
 {
-    public  class ManagersFactory
+    /// <summary>
+    /// Managers factory
+    /// </summary>
+    public class ManagersFactory
     {
         private readonly IUnitOfWork efUnitOfWork;
         private  HouseManager houseManager;
@@ -28,18 +31,30 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             efUnitOfWork = new EfUnitOfWork(connectionString);
         }
 
+        /// <summary>
+        /// Returns the houses management manager.
+        /// </summary>
+        /// <returns>HouseManager</returns>
         public HouseManager GetHouseManager()
         {
             if (houseManager is null) houseManager = new HouseManager(efUnitOfWork);
             return houseManager;
         }
 
+        /// <summary>
+        /// Returns the apartments management manager.
+        /// </summary>
+        /// <returns>ApartmentManager</returns>
         public ApartmentManager GetApartmentManager()
         {
             if(apartmentManager is null) apartmentManager = new ApartmentManager(efUnitOfWork);
             return apartmentManager;
         }
 
+        /// <summary>
+        /// Returns the photos management manager.
+        /// </summary>
+        /// <returns>PhotoManager</returns>
         public PhotoManager GetPhotoManager()
         {
             if(photoManager == null) photoManager = new PhotoManager(efUnitOfWork);
