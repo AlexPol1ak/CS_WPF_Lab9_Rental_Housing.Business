@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
 {
-    public  class ManagersFactary
+    public  class ManagersFactory
     {
         private readonly IUnitOfWork efUnitOfWork;
         private  HouseManager houseManager;
         private ApartmentManager apartmentManager;
         private PhotoManager photoManager;
 
-        public ManagersFactary(string connectionStringName)
+        public ManagersFactory(string connectionStringName)
         {
             IConfigurationRoot config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).
                 AddJsonFile("appsettings.json").Build();

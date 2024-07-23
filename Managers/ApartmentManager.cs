@@ -60,5 +60,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             return i;
 
         }
+
+        public int CountApartments() => apartmentRepository.Count();
     }
 }

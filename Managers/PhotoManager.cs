@@ -35,5 +35,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             return photoRepository.Delete(id);
         }
 
+        public int CountPhotos() => photoRepository.Count();
+
     }
 }

@@ -44,6 +44,8 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         {
             return housesRepository.Contains(house);
         }
+
+        public int CountHouses() => housesRepository.Count();
         
 
         #endregion

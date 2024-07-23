@@ -22,5 +22,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             apartmentRepository = unitOfWork.ApartmentsRepository;
             photoRepository = unitOfWork.PhotosRepository;
         }
+
+        public void SaveChanges() => unitOfWork.SaveChanges();
     }
 }
