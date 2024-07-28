@@ -1,4 +1,5 @@
-﻿using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
+﻿using CS_WPF_Lab9_Rental_Housing.DAL.Repositories;
+using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
 using CS_WPF_Lab9_Rental_Housing.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -46,13 +47,32 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// <summary>
         /// Get house by ID.
         /// </summary>
-        public House GetHouseById(int id) =>housesRepository.Get(id);
+        public House GetHouseById(int id, bool loadApartments = false)
+        {
+            if (loadApartments)
+            {
+                House house = housesRepository.Get(id);
+                LoadApartments(house);
+                return house;
+            }
+            return housesRepository.Get(id);
+        }
 
         /// <summary>
         /// Get all houses.
         /// </summary>
         /// <returns>All houses</returns>
-        public IEnumerable<House> GetAllHouses() => housesRepository.GetAll();
+        public IEnumerable<House> GetAllHouses(bool loadApartments = false)
+        {
+            if (loadApartments)
+            {
+                var allHouses = housesRepository.GetAll().ToList();
+                LoadApartments(allHouses);
+                return allHouses;
+            }
+
+            return housesRepository.GetAll();
+        }
 
         /// <summary>
         /// Update house.
@@ -79,6 +99,16 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         public int CountHouses() => housesRepository.Count();
         
         #endregion
+
+        public  void LoadApartments(House house)
+        {
+            LoadRelatedEntities(house, h => h.Apartments);
+        }
+
+        public void LoadApartments(IEnumerable<House> houses)
+        {
+            foreach(House house in houses) LoadApartments(house);
+        }
     }
 
 }

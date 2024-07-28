@@ -79,7 +79,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// <returns>Number of photos added</returns>
         public int AddPhotosApartment(int id, IEnumerable<Photo> photos)
         {
-            Apartment ap = apartmentRepository.Get(id);
+            Apartment ap = apartmentRepository.Get(id, "Photos");
             if (ap == null) return 0;
             int i = 0;
             foreach(Photo photo in photos)
@@ -97,5 +97,15 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         public int CountApartments() => apartmentRepository.Count();
 
         #endregion
+
+        public void LoadPhotos(Apartment apartment)
+        {
+            LoadRelatedEntities(apartment, h=>h.Photos);
+        }
+
+        public void LoadPhotos(IEnumerable<Apartment> apartments)
+        {
+            foreach (Apartment ap in apartments) LoadPhotos(ap);
+        }
     }
 }
