@@ -1,22 +1,12 @@
-﻿using CS_WPF_Lab9_Rental_Housing.Business.Managers;
-using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System;
-using System.Collections.Generic;
+﻿using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
 {
     /// <summary>
     /// Filling the database with the initial data.
     /// </summary>
-    public static  class DbInitData
+    public static class DbInitData
     {
         /// <summary>
         /// Fills the database with fake initial data.
@@ -29,7 +19,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
         /// </param>
         public static void SetupData(ManagersFactory factory, bool onlyEmpty = true)
         {
-            
+
             var housesManager = factory.GetHouseManager();
             var apartmentManager = factory.GetApartmentManager();
 
@@ -41,7 +31,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             }
 
             // Creates a list of houses with apartments, photos and stores in a database.
-            List<House> houses = CreateHouses();      
+            List<House> houses = CreateHouses();
             foreach (House house in houses)
             {
                 housesManager.AddHouse(house);
@@ -87,12 +77,12 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             int houseInd = 0; // House index
 
             List<Apartment> temAddpApart = new List<Apartment>();
-            for(int i = 0; i < apartments.Count; i++)
-            {              
+            for (int i = 0; i < apartments.Count; i++)
+            {
                 temAddpApart.Add(apartments[i]);
                 numberApart++;
-                
-                if(numberApart >= countApart)
+
+                if (numberApart >= countApart)
                 {
                     houses[houseInd].Apartments = temAddpApart;
                     houseInd++;
@@ -101,7 +91,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
                 }
 
             }
-            
+
             return houses;
 
         }
@@ -183,16 +173,16 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Infastructure
             IEnumerator<Photo> photoEnumerator = GetPhoto(12).GetEnumerator();
 
             //Adding 2 photos to each apartment
-            foreach ( Apartment a in apartments)
+            foreach (Apartment a in apartments)
             {
                 List<Photo> photos = new List<Photo>();
-                for(int i = 0; i <2; i++)
+                for (int i = 0; i < 2; i++)
 
                 {
                     photoEnumerator.MoveNext();
-                    photos.Add(photoEnumerator.Current);                   
-                } 
-                a.Photos = photos;                           
+                    photos.Add(photoEnumerator.Current);
+                }
+                a.Photos = photos;
             }
             return apartments;
         }

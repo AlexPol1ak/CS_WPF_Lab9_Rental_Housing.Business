@@ -1,12 +1,6 @@
-﻿using CS_WPF_Lab9_Rental_Housing.DAL.Repositories;
-using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
+﻿using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
 using CS_WPF_Lab9_Rental_Housing.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
 {
@@ -22,7 +16,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// Add house.
         /// </summary>
 
-        public void AddHouse (House house)
+        public void AddHouse(House house)
         {
             housesRepository.Create(house);
         }
@@ -31,7 +25,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// Delete house by ID.
         /// </summary>
         /// <param name="id">House ID</param>
-        public bool DeleteHouse( int id)
+        public bool DeleteHouse(int id)
         {
             return housesRepository.Delete(id);
         }
@@ -41,7 +35,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public IEnumerable<House> FindHouse(Expression<Func<House, bool>> predicate)=>
+        public IEnumerable<House> FindHouse(Expression<Func<House, bool>> predicate) =>
             housesRepository.Find(predicate);
 
         /// <summary>
@@ -97,17 +91,17 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// </summary>
         /// <returns></returns>
         public int CountHouses() => housesRepository.Count();
-        
+
         #endregion
 
-        public  void LoadApartments(House house)
+        public void LoadApartments(House house)
         {
             LoadRelatedEntities(house, h => h.Apartments);
         }
 
         public void LoadApartments(IEnumerable<House> houses)
         {
-            foreach(House house in houses) LoadApartments(house);
+            foreach (House house in houses) LoadApartments(house);
         }
     }
 

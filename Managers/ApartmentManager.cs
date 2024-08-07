@@ -1,11 +1,6 @@
 ﻿using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
 using CS_WPF_Lab9_Rental_Housing.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
 {
@@ -21,7 +16,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// </summary>
         /// <param name="idHouse">House ID</param>
         /// <param name="apartment">Apartment entity</param>
-        public bool AddApartment(int idHouse, Apartment apartment )
+        public bool AddApartment(int idHouse, Apartment apartment)
         {
             House house = housesRepository.Get(idHouse);
             if (house is null) return false;
@@ -46,7 +41,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
         /// Delete apartment by ID.
         /// </summary>
         /// <param name="id">Apartments ID</param>
-        public bool DeleteApartment( int id)
+        public bool DeleteApartment(int id)
         {
             return apartmentRepository.Delete(id);
         }
@@ -82,7 +77,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             Apartment ap = apartmentRepository.Get(id, "Photos");
             if (ap == null) return 0;
             int i = 0;
-            foreach(Photo photo in photos)
+            foreach (Photo photo in photos)
             {
                 ap.Photos.Add(photo);
                 i++;
@@ -100,7 +95,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
 
         public void LoadPhotos(Apartment apartment)
         {
-            LoadRelatedEntities(apartment, h=>h.Photos);
+            LoadRelatedEntities(apartment, h => h.Photos);
         }
 
         public void LoadPhotos(IEnumerable<Apartment> apartments)

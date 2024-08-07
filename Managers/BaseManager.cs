@@ -1,18 +1,12 @@
-﻿using CS_WPF_Lab9_Rental_Housing.DAL.Data;
-using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
+﻿using CS_WPF_Lab9_Rental_Housing.Domain.Entities;
 using CS_WPF_Lab9_Rental_Housing.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
 {
     public class BaseManager
     {
-        
+
         protected readonly IUnitOfWork unitOfWork;
         //Table сontrol Repositories.
         protected readonly IRepository<House> housesRepository;
@@ -25,7 +19,7 @@ namespace CS_WPF_Lab9_Rental_Housing.Business.Managers
             housesRepository = unitOfWork.HousesRepository;
             apartmentRepository = unitOfWork.ApartmentsRepository;
             photoRepository = unitOfWork.PhotosRepository;
- 
+
         }
 
         public void SaveChanges() => unitOfWork.SaveChanges();
